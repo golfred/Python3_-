@@ -1,0 +1,604 @@
+F:\python\Python3_Projects\environment\Scripts\python.exe F:/python/Python3_Projects/过采样和朴素贝叶斯.py
+.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_
+Start of NaiveBayes test
+未丢弃中间数据： 
+原始数据： 
+Loaded data file lisan.csv with 3709 rows
+____________________________________________________________
+去重复行后： 
+Loaded data file lisan.csv with 896 rows
+(896, 17)
+
+原始数据的快速汇总统计
+       KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  RRC_Estab.-SR  \
+count          896.000000       896.000000       896.000000     896.000000   
+mean             0.370536         1.773438         1.270089       1.837054   
+std              0.483218         0.574123         0.870778       0.456131   
+min              0.000000         0.000000         0.000000       0.000000   
+25%              0.000000         2.000000         0.000000       2.000000   
+50%              0.000000         2.000000         2.000000       2.000000   
+75%              1.000000         2.000000         2.000000       2.000000   
+max              1.000000         2.000000         2.000000       2.000000   
+
+       DL_PRB_avg_Utilz._rate  Maximum_num_of_users  Mean_num_of_users  \
+count              896.000000            896.000000          896.00000   
+mean                 1.958705              1.902902            1.94308   
+std                  0.204617              0.338502            0.25478   
+min                  0.000000              0.000000            0.00000   
+25%                  2.000000              2.000000            2.00000   
+50%                  2.000000              2.000000            2.00000   
+75%                  2.000000              2.000000            2.00000   
+max                  2.000000              2.000000            2.00000   
+
+       UL_PRB_avg_Utilz._rate  UE_Context_DR  E_RAB_Context_DR  \
+count              896.000000     896.000000        896.000000   
+mean                 1.987723       1.207589          1.347098   
+std                  0.110180       0.902751          0.868475   
+min                  1.000000       0.000000          0.000000   
+25%                  2.000000       0.000000          0.000000   
+50%                  2.000000       2.000000          2.000000   
+75%                  2.000000       2.000000          2.000000   
+max                  2.000000       2.000000          2.000000   
+
+       DL_avg_Pckt_delay  Inner_HO-SR    X2_HO-SR  RSRP_Coverage_rate  \
+count         896.000000   896.000000  896.000000          896.000000   
+mean            0.985491     1.753348    1.861607            0.964286   
+std             0.898672     0.618604    0.459340            0.882390   
+min             0.000000     0.000000    0.000000            0.000000   
+25%             0.000000     2.000000    2.000000            0.000000   
+50%             1.000000     2.000000    2.000000            1.000000   
+75%             2.000000     2.000000    2.000000            2.000000   
+max             2.000000     2.000000    2.000000            2.000000   
+
+       CQI_up_seven        RSSI  Avg_distance  
+count    896.000000  896.000000    896.000000  
+mean       1.241071    1.837054      1.496652  
+std        0.772378    0.489224      0.696351  
+min        0.000000    0.000000      0.000000  
+25%        1.000000    2.000000      1.000000  
+50%        1.000000    2.000000      2.000000  
+75%        2.000000    2.000000      2.000000  
+max        2.000000    2.000000      2.000000  
+
+-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+各列的相关性分析： 
+	相关性R的取值范围为[-1, 1]
+	• 0.8‐1.0 极强相关
+	• 0.6‐0.8 强相关
+	• 0.4‐0.6 中等程度相关
+	• 0.2‐0.4 弱相关
+	• 0.0‐0.2 极弱相关或无相关
+各列相关性： 
+                        KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  \
+KQI_Degradate_Flag                1.000000        -0.401863        -0.254039   
+E_RAB_Estab.-SR                  -0.401863         1.000000         0.337090   
+RRC_Recon._rate                  -0.254039         0.337090         1.000000   
+RRC_Estab.-SR                    -0.217480         0.349528         0.189693   
+DL_PRB_avg_Utilz._rate            0.121025        -0.079729        -0.069021   
+Maximum_num_of_users              0.199710        -0.113323        -0.145946   
+Mean_num_of_users                 0.162426        -0.088260        -0.106896   
+UL_PRB_avg_Utilz._rate            0.043565         0.026633         0.057891   
+UE_Context_DR                    -0.289225         0.334449         0.244136   
+E_RAB_Context_DR                 -0.312133         0.377497         0.199459   
+DL_avg_Pckt_delay                 0.094729         0.075913         0.123521   
+Inner_HO-SR                      -0.209737         0.311233         0.175666   
+X2_HO-SR                         -0.121082         0.160601         0.155009   
+RSRP_Coverage_rate               -0.023958        -0.128472        -0.052869   
+CQI_up_seven                     -0.068961        -0.002677         0.223707   
+RSSI                             -0.401275         0.461136         0.287018   
+Avg_distance                     -0.139091        -0.008886         0.025447   
+
+                        RRC_Estab.-SR  DL_PRB_avg_Utilz._rate  \
+KQI_Degradate_Flag          -0.217480                0.121025   
+E_RAB_Estab.-SR              0.349528               -0.079729   
+RRC_Recon._rate              0.189693               -0.069021   
+RRC_Estab.-SR                1.000000               -0.060204   
+DL_PRB_avg_Utilz._rate      -0.060204                1.000000   
+Maximum_num_of_users        -0.095350                0.329200   
+Mean_num_of_users           -0.070284                0.404941   
+UL_PRB_avg_Utilz._rate       0.004615                0.076608   
+UE_Context_DR                0.152788               -0.110808   
+E_RAB_Context_DR             0.176780               -0.070152   
+DL_avg_Pckt_delay           -0.027580                0.197253   
+Inner_HO-SR                  0.091032               -0.080558   
+X2_HO-SR                     0.105560               -0.037096   
+RSRP_Coverage_rate          -0.042236               -0.094814   
+CQI_up_seven                 0.064052                0.027711   
+RSSI                         0.226366               -0.044970   
+Avg_distance                -0.082627               -0.130358   
+
+                        Maximum_num_of_users  Mean_num_of_users  \
+KQI_Degradate_Flag                  0.199710           0.162426   
+E_RAB_Estab.-SR                    -0.113323          -0.088260   
+RRC_Recon._rate                    -0.145946          -0.106896   
+RRC_Estab.-SR                      -0.095350          -0.070284   
+DL_PRB_avg_Utilz._rate              0.329200           0.404941   
+Maximum_num_of_users                1.000000           0.764988   
+Mean_num_of_users                   0.764988           1.000000   
+UL_PRB_avg_Utilz._rate             -0.002040           0.014881   
+UE_Context_DR                      -0.215504          -0.176888   
+E_RAB_Context_DR                   -0.181681          -0.147942   
+DL_avg_Pckt_delay                   0.138609           0.133026   
+Inner_HO-SR                        -0.098493          -0.082088   
+X2_HO-SR                           -0.072148          -0.048290   
+RSRP_Coverage_rate                 -0.105141          -0.083601   
+CQI_up_seven                       -0.128320          -0.094850   
+RSSI                               -0.075406          -0.056565   
+Avg_distance                       -0.103293          -0.079797   
+
+                        UL_PRB_avg_Utilz._rate  UE_Context_DR  \
+KQI_Degradate_Flag                    0.043565      -0.289225   
+E_RAB_Estab.-SR                       0.026633       0.334449   
+RRC_Recon._rate                       0.057891       0.244136   
+RRC_Estab.-SR                         0.004615       0.152788   
+DL_PRB_avg_Utilz._rate                0.076608      -0.110808   
+Maximum_num_of_users                 -0.002040      -0.215504   
+Mean_num_of_users                     0.014881      -0.176888   
+UL_PRB_avg_Utilz._rate                1.000000       0.003184   
+UE_Context_DR                         0.003184       1.000000   
+E_RAB_Context_DR                     -0.037154       0.701786   
+DL_avg_Pckt_delay                     0.088473       0.016112   
+Inner_HO-SR                          -0.011691       0.169820   
+X2_HO-SR                             -0.033608       0.134026   
+RSRP_Coverage_rate                    0.098918       0.003707   
+CQI_up_seven                          0.061075       0.093198   
+RSSI                                 -0.037154       0.294246   
+Avg_distance                          0.021308      -0.020222   
+
+                        E_RAB_Context_DR  DL_avg_Pckt_delay  Inner_HO-SR  \
+KQI_Degradate_Flag             -0.312133           0.094729    -0.209737   
+E_RAB_Estab.-SR                 0.377497           0.075913     0.311233   
+RRC_Recon._rate                 0.199459           0.123521     0.175666   
+RRC_Estab.-SR                   0.176780          -0.027580     0.091032   
+DL_PRB_avg_Utilz._rate         -0.070152           0.197253    -0.080558   
+Maximum_num_of_users           -0.181681           0.138609    -0.098493   
+Mean_num_of_users              -0.147942           0.133026    -0.082088   
+UL_PRB_avg_Utilz._rate         -0.037154           0.088473    -0.011691   
+UE_Context_DR                   0.701786           0.016112     0.169820   
+E_RAB_Context_DR                1.000000           0.052271     0.149135   
+DL_avg_Pckt_delay               0.052271           1.000000    -0.000415   
+Inner_HO-SR                     0.149135          -0.000415     1.000000   
+X2_HO-SR                        0.106544           0.076332     0.021293   
+RSRP_Coverage_rate             -0.043584          -0.083786    -0.040719   
+CQI_up_seven                    0.075000           0.257768    -0.057815   
+RSSI                            0.314717           0.192843     0.232552   
+Avg_distance                   -0.050731          -0.025967     0.027909   
+
+                        X2_HO-SR  RSRP_Coverage_rate  CQI_up_seven      RSSI  \
+KQI_Degradate_Flag     -0.121082           -0.023958     -0.068961 -0.401275   
+E_RAB_Estab.-SR         0.160601           -0.128472     -0.002677  0.461136   
+RRC_Recon._rate         0.155009           -0.052869      0.223707  0.287018   
+RRC_Estab.-SR           0.105560           -0.042236      0.064052  0.226366   
+DL_PRB_avg_Utilz._rate -0.037096           -0.094814      0.027711 -0.044970   
+Maximum_num_of_users   -0.072148           -0.105141     -0.128320 -0.075406   
+Mean_num_of_users      -0.048290           -0.083601     -0.094850 -0.056565   
+UL_PRB_avg_Utilz._rate -0.033608            0.098918      0.061075 -0.037154   
+UE_Context_DR           0.134026            0.003707      0.093198  0.294246   
+E_RAB_Context_DR        0.106544           -0.043584      0.075000  0.314717   
+DL_avg_Pckt_delay       0.076332           -0.083786      0.257768  0.192843   
+Inner_HO-SR             0.021293           -0.040719     -0.057815  0.232552   
+X2_HO-SR                1.000000           -0.061828      0.059499  0.138196   
+RSRP_Coverage_rate     -0.061828            1.000000      0.179866 -0.238675   
+CQI_up_seven            0.059499            0.179866      1.000000  0.041978   
+RSSI                    0.138196           -0.238675      0.041978  1.000000   
+Avg_distance           -0.032888            0.298022      0.084598 -0.145912   
+
+                        Avg_distance  
+KQI_Degradate_Flag         -0.139091  
+E_RAB_Estab.-SR            -0.008886  
+RRC_Recon._rate             0.025447  
+RRC_Estab.-SR              -0.082627  
+DL_PRB_avg_Utilz._rate     -0.130358  
+Maximum_num_of_users       -0.103293  
+Mean_num_of_users          -0.079797  
+UL_PRB_avg_Utilz._rate      0.021308  
+UE_Context_DR              -0.020222  
+E_RAB_Context_DR           -0.050731  
+DL_avg_Pckt_delay          -0.025967  
+Inner_HO-SR                 0.027909  
+X2_HO-SR                   -0.032888  
+RSRP_Coverage_rate          0.298022  
+CQI_up_seven                0.084598  
+RSSI                       -0.145912  
+Avg_distance                1.000000  
+
+..............................
+删除列： DL_PRB_avg_Utilz._rate 	R =  0.121
+删除列： UL_PRB_avg_Utilz._rate 	R =  0.0436
+删除列： DL_avg_Pckt_delay 	R =  0.0947
+删除列：     X2_HO-SR 	R =  -0.1211
+删除列： RSRP_Coverage_rate 	R =  -0.024
+删除列： CQI_up_seven 	R =  -0.069
+删除列： Avg_distance 	R =  -0.1391
+删除极弱相关数据列后的dataset_new:
+        KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  RRC_Estab.-SR  \
+row_id                                                                        
+0                        1                2                0              2   
+1                        1                2                0              2   
+2                        1                2                2              2   
+3                        1                0                0              2   
+4                        1                2                0              2   
+
+        Maximum_num_of_users  Mean_num_of_users  UE_Context_DR  \
+row_id                                                           
+0                          2                  2              2   
+1                          2                  2              0   
+2                          2                  2              2   
+3                          2                  2              2   
+4                          2                  2              2   
+
+        E_RAB_Context_DR  Inner_HO-SR  RSSI  
+row_id                                       
+0                      2            2     2  
+1                      0            2     2  
+2                      2            2     2  
+3                      2            2     2  
+4                      2            2     2  
+..............................
+dataset_new各列相关性： 
+                      KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  \
+KQI_Degradate_Flag              1.000000        -0.401863        -0.254039   
+E_RAB_Estab.-SR                -0.401863         1.000000         0.337090   
+RRC_Recon._rate                -0.254039         0.337090         1.000000   
+RRC_Estab.-SR                  -0.217480         0.349528         0.189693   
+Maximum_num_of_users            0.199710        -0.113323        -0.145946   
+Mean_num_of_users               0.162426        -0.088260        -0.106896   
+UE_Context_DR                  -0.289225         0.334449         0.244136   
+E_RAB_Context_DR               -0.312133         0.377497         0.199459   
+Inner_HO-SR                    -0.209737         0.311233         0.175666   
+RSSI                           -0.401275         0.461136         0.287018   
+
+                      RRC_Estab.-SR  Maximum_num_of_users  Mean_num_of_users  \
+KQI_Degradate_Flag        -0.217480              0.199710           0.162426   
+E_RAB_Estab.-SR            0.349528             -0.113323          -0.088260   
+RRC_Recon._rate            0.189693             -0.145946          -0.106896   
+RRC_Estab.-SR              1.000000             -0.095350          -0.070284   
+Maximum_num_of_users      -0.095350              1.000000           0.764988   
+Mean_num_of_users         -0.070284              0.764988           1.000000   
+UE_Context_DR              0.152788             -0.215504          -0.176888   
+E_RAB_Context_DR           0.176780             -0.181681          -0.147942   
+Inner_HO-SR                0.091032             -0.098493          -0.082088   
+RSSI                       0.226366             -0.075406          -0.056565   
+
+                      UE_Context_DR  E_RAB_Context_DR  Inner_HO-SR      RSSI  
+KQI_Degradate_Flag        -0.289225         -0.312133    -0.209737 -0.401275  
+E_RAB_Estab.-SR            0.334449          0.377497     0.311233  0.461136  
+RRC_Recon._rate            0.244136          0.199459     0.175666  0.287018  
+RRC_Estab.-SR              0.152788          0.176780     0.091032  0.226366  
+Maximum_num_of_users      -0.215504         -0.181681    -0.098493 -0.075406  
+Mean_num_of_users         -0.176888         -0.147942    -0.082088 -0.056565  
+UE_Context_DR              1.000000          0.701786     0.169820  0.294246  
+E_RAB_Context_DR           0.701786          1.000000     0.149135  0.314717  
+Inner_HO-SR                0.169820          0.149135     1.000000  0.232552  
+RSSI                       0.294246          0.314717     0.232552  1.000000  
+
+删除强相关列： E_RAB_Context_DR 	R =  0.7018
+..............................
+删除强相关列： Mean_num_of_users 	R =  0.765
+..............................
+删除极强相关数据列后的dataset_new:
+dataset_new各列相关性： 
+                      KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  \
+KQI_Degradate_Flag              1.000000        -0.401863        -0.254039   
+E_RAB_Estab.-SR                -0.401863         1.000000         0.337090   
+RRC_Recon._rate                -0.254039         0.337090         1.000000   
+RRC_Estab.-SR                  -0.217480         0.349528         0.189693   
+Maximum_num_of_users            0.199710        -0.113323        -0.145946   
+UE_Context_DR                  -0.289225         0.334449         0.244136   
+Inner_HO-SR                    -0.209737         0.311233         0.175666   
+RSSI                           -0.401275         0.461136         0.287018   
+
+                      RRC_Estab.-SR  Maximum_num_of_users  UE_Context_DR  \
+KQI_Degradate_Flag        -0.217480              0.199710      -0.289225   
+E_RAB_Estab.-SR            0.349528             -0.113323       0.334449   
+RRC_Recon._rate            0.189693             -0.145946       0.244136   
+RRC_Estab.-SR              1.000000             -0.095350       0.152788   
+Maximum_num_of_users      -0.095350              1.000000      -0.215504   
+UE_Context_DR              0.152788             -0.215504       1.000000   
+Inner_HO-SR                0.091032             -0.098493       0.169820   
+RSSI                       0.226366             -0.075406       0.294246   
+
+                      Inner_HO-SR      RSSI  
+KQI_Degradate_Flag      -0.209737 -0.401275  
+E_RAB_Estab.-SR          0.311233  0.461136  
+RRC_Recon._rate          0.175666  0.287018  
+RRC_Estab.-SR            0.091032  0.226366  
+Maximum_num_of_users    -0.098493 -0.075406  
+UE_Context_DR            0.169820  0.294246  
+Inner_HO-SR              1.000000  0.232552  
+RSSI                     0.232552  1.000000  
+
+Split 896 rows into train with 672 and test with 224
+输入数据完毕！
+.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_
+clf.fit(os_features, os_labels) is  BernoulliNB(alpha=1.0, binarize=0.0, class_prior=None, fit_prior=True) 
+
+原来的训练数据量：  672
+过采样后的训练数据量：  860
+clf.class_count_ is 
+array([ 430.,  430.])
+
+The Accuracy of BernoulliNB is 0.714285714286
+............................................................
+             precision    recall  f1-score   support
+
+    cause=0       0.76      0.77      0.76       134
+    cause=1       0.65      0.63      0.64        90
+
+avg / total       0.71      0.71      0.71       224
+
+._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._
+
+clf.fit(os_features, os_labels) is  MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True) 
+
+原来的训练数据量：  672
+过采样后的训练数据量：  860
+clf.class_count_ is 
+array([ 430.,  430.])
+
+The Accuracy of MultinomialNB is 0.678571428571
+............................................................
+             precision    recall  f1-score   support
+
+    cause=0       0.73      0.73      0.73       134
+    cause=1       0.60      0.60      0.60        90
+
+avg / total       0.68      0.68      0.68       224
+
+._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._
+
+clf.fit(os_features, os_labels) is  GaussianNB(priors=None) 
+
+原来的训练数据量：  672
+过采样后的训练数据量：  860
+clf.class_count_ is 
+array([ 430.,  430.])
+
+The Accuracy of GaussianNB is 0.75
+............................................................
+             precision    recall  f1-score   support
+
+    cause=0       0.75      0.88      0.81       134
+    cause=1       0.76      0.56      0.64        90
+
+avg / total       0.75      0.75      0.74       224
+
+._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._
+丢弃中间数据（==1）：
+F:/python/Python3_Projects/过采样和朴素贝叶斯.py:240: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  dataset_feature[dataset_feature==1.0] = np.nan
+F:\python\Python3_Projects\environment\lib\site-packages\pandas\core\frame.py:2554: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  self._where(-key, value, inplace=True)
+F:/python/Python3_Projects/过采样和朴素贝叶斯.py:241: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  dataset_feature[dataset_feature==2.0] = 1.0
+dataset1:  896
+去重复行后： 
+Loaded data file lisan.csv with 90 rows
+(90, 17)
+
+-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+各列的相关性分析： 
+	相关性R的取值范围为[-1, 1]
+	• 0.8‐1.0 极强相关
+	• 0.6‐0.8 强相关
+	• 0.4‐0.6 中等程度相关
+	• 0.2‐0.4 弱相关
+	• 0.0‐0.2 极弱相关或无相关
+各列相关性： 
+                      KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  \
+KQI_Degradate_Flag              1.000000        -0.270421        -0.251199   
+E_RAB_Estab.-SR                -0.270421         1.000000         0.118913   
+RRC_Recon._rate                -0.251199         0.118913         1.000000   
+RRC_Estab.-SR                  -0.093101         0.191896         0.015973   
+Maximum_num_of_users            0.090614        -0.037477        -0.092694   
+Mean_num_of_users               0.090614        -0.037477        -0.092694   
+UE_Context_DR                  -0.261901         0.089128         0.012333   
+E_RAB_Context_DR               -0.247573         0.186551         0.030423   
+DL_avg_Pckt_delay               0.090253         0.024456         0.032571   
+Inner_HO-SR                    -0.055675         0.100000        -0.023783   
+X2_HO-SR                       -0.055675        -0.125000        -0.023783   
+RSRP_Coverage_rate             -0.021185        -0.118913         0.176471   
+CQI_up_seven                   -0.150003        -0.069338         0.234162   
+RSSI                           -0.185507         0.222948         0.081574   
+Avg_distance                   -0.109024        -0.009626         0.097067   
+
+                      RRC_Estab.-SR  Maximum_num_of_users  Mean_num_of_users  \
+KQI_Degradate_Flag        -0.093101              0.090614           0.090614   
+E_RAB_Estab.-SR            0.191896             -0.037477          -0.037477   
+RRC_Recon._rate            0.015973             -0.092694          -0.092694   
+RRC_Estab.-SR              1.000000             -0.039554          -0.039554   
+Maximum_num_of_users      -0.039554              1.000000           1.000000   
+Mean_num_of_users         -0.039554              1.000000           1.000000   
+UE_Context_DR              0.059084             -0.082594          -0.082594   
+E_RAB_Context_DR           0.158535             -0.063920          -0.063920   
+DL_avg_Pckt_delay         -0.283924              0.139311           0.139311   
+Inner_HO-SR                0.083954             -0.037477          -0.037477   
+X2_HO-SR                  -0.023987             -0.037477          -0.037477   
+RSRP_Coverage_rate         0.120940             -0.121215          -0.121215   
+CQI_up_seven               0.136382             -0.067562          -0.067562   
+RSSI                       0.057592             -0.025709          -0.025709   
+Avg_distance              -0.109908             -0.054834          -0.054834   
+
+                      UE_Context_DR  E_RAB_Context_DR  DL_avg_Pckt_delay  \
+KQI_Degradate_Flag        -0.261901         -0.247573           0.090253   
+E_RAB_Estab.-SR            0.089128          0.186551           0.024456   
+RRC_Recon._rate            0.012333          0.030423           0.032571   
+RRC_Estab.-SR              0.059084          0.158535          -0.283924   
+Maximum_num_of_users      -0.082594         -0.063920           0.139311   
+Mean_num_of_users         -0.082594         -0.063920           0.139311   
+UE_Context_DR              1.000000          0.773906          -0.022193   
+E_RAB_Context_DR           0.773906          1.000000          -0.041712   
+DL_avg_Pckt_delay         -0.022193         -0.041712           1.000000   
+Inner_HO-SR                0.016205          0.026650          -0.122279   
+X2_HO-SR                   0.089128          0.026650           0.097823   
+RSRP_Coverage_rate         0.080163          0.070986          -0.079101   
+CQI_up_seven               0.008989          0.003696           0.125482   
+RSSI                       0.211215          0.182818           0.117436   
+Avg_distance              -0.066140         -0.065673           0.171381   
+
+                      Inner_HO-SR  X2_HO-SR  RSRP_Coverage_rate  CQI_up_seven  \
+KQI_Degradate_Flag      -0.055675 -0.055675           -0.021185     -0.150003   
+E_RAB_Estab.-SR          0.100000 -0.125000           -0.118913     -0.069338   
+RRC_Recon._rate         -0.023783 -0.023783            0.176471      0.234162   
+RRC_Estab.-SR            0.083954 -0.023987            0.120940      0.136382   
+Maximum_num_of_users    -0.037477 -0.037477           -0.121215     -0.067562   
+Mean_num_of_users       -0.037477 -0.037477           -0.121215     -0.067562   
+UE_Context_DR            0.016205  0.089128            0.080163      0.008989   
+E_RAB_Context_DR         0.026650  0.026650            0.070986      0.003696   
+DL_avg_Pckt_delay       -0.122279  0.097823           -0.079101      0.125482   
+Inner_HO-SR              1.000000 -0.125000            0.023783     -0.147342   
+X2_HO-SR                -0.125000  1.000000           -0.047565     -0.069338   
+RSRP_Coverage_rate       0.023783 -0.047565            1.000000      0.359487   
+CQI_up_seven            -0.147342 -0.069338            0.359487      1.000000   
+RSSI                     0.068599 -0.085749           -0.179462     -0.047565   
+Avg_distance            -0.009626 -0.096261            0.122708      0.090773   
+
+                          RSSI  Avg_distance  
+KQI_Degradate_Flag   -0.185507     -0.109024  
+E_RAB_Estab.-SR       0.222948     -0.009626  
+RRC_Recon._rate       0.081574      0.097067  
+RRC_Estab.-SR         0.057592     -0.109908  
+Maximum_num_of_users -0.025709     -0.054834  
+Mean_num_of_users    -0.025709     -0.054834  
+UE_Context_DR         0.211215     -0.066140  
+E_RAB_Context_DR      0.182818     -0.065673  
+DL_avg_Pckt_delay     0.117436      0.171381  
+Inner_HO-SR           0.068599     -0.009626  
+X2_HO-SR             -0.085749     -0.096261  
+RSRP_Coverage_rate   -0.179462      0.122708  
+CQI_up_seven         -0.047565      0.090773  
+RSSI                  1.000000     -0.006603  
+Avg_distance         -0.006603      1.000000  
+
+..............................
+删除列： RRC_Estab.-SR 	R =  -0.0931
+删除列： Maximum_num_of_users 	R =  0.0906
+删除列： Mean_num_of_users 	R =  0.0906
+删除列： DL_avg_Pckt_delay 	R =  0.0903
+删除列：  Inner_HO-SR 	R =  -0.0557
+删除列：     X2_HO-SR 	R =  -0.0557
+删除列： RSRP_Coverage_rate 	R =  -0.0212
+删除列： Avg_distance 	R =  -0.109
+删除极弱相关数据列后的dataset_new:
+        KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  UE_Context_DR  \
+row_id                                                                        
+1                        1              1.0              0.0            0.0   
+2                        1              1.0              1.0            1.0   
+3                        1              0.0              0.0            1.0   
+20                       1              1.0              0.0            0.0   
+41                       1              1.0              1.0            1.0   
+
+        E_RAB_Context_DR  CQI_up_seven  RSSI  
+row_id                                        
+1                    0.0           0.0   1.0  
+2                    1.0           1.0   1.0  
+3                    1.0           0.0   1.0  
+20                   0.0           0.0   1.0  
+41                   1.0           1.0   1.0  
+..............................
+dataset_new各列相关性： 
+                    KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  \
+KQI_Degradate_Flag            1.000000        -0.270421        -0.251199   
+E_RAB_Estab.-SR              -0.270421         1.000000         0.118913   
+RRC_Recon._rate              -0.251199         0.118913         1.000000   
+UE_Context_DR                -0.261901         0.089128         0.012333   
+E_RAB_Context_DR             -0.247573         0.186551         0.030423   
+CQI_up_seven                 -0.150003        -0.069338         0.234162   
+RSSI                         -0.185507         0.222948         0.081574   
+
+                    UE_Context_DR  E_RAB_Context_DR  CQI_up_seven      RSSI  
+KQI_Degradate_Flag      -0.261901         -0.247573     -0.150003 -0.185507  
+E_RAB_Estab.-SR          0.089128          0.186551     -0.069338  0.222948  
+RRC_Recon._rate          0.012333          0.030423      0.234162  0.081574  
+UE_Context_DR            1.000000          0.773906      0.008989  0.211215  
+E_RAB_Context_DR         0.773906          1.000000      0.003696  0.182818  
+CQI_up_seven             0.008989          0.003696      1.000000 -0.047565  
+RSSI                     0.211215          0.182818     -0.047565  1.000000  
+
+删除强相关列： E_RAB_Context_DR 	R =  0.7739
+..............................
+                    KQI_Degradate_Flag  E_RAB_Estab.-SR  RRC_Recon._rate  \
+KQI_Degradate_Flag            1.000000        -0.270421        -0.251199   
+E_RAB_Estab.-SR              -0.270421         1.000000         0.118913   
+RRC_Recon._rate              -0.251199         0.118913         1.000000   
+UE_Context_DR                -0.261901         0.089128         0.012333   
+CQI_up_seven                 -0.150003        -0.069338         0.234162   
+RSSI                         -0.185507         0.222948         0.081574   
+
+                    UE_Context_DR  CQI_up_seven      RSSI  
+KQI_Degradate_Flag      -0.261901     -0.150003 -0.185507  
+E_RAB_Estab.-SR          0.089128     -0.069338  0.222948  
+RRC_Recon._rate          0.012333      0.234162  0.081574  
+UE_Context_DR            1.000000      0.008989  0.211215  
+CQI_up_seven             0.008989      1.000000 -0.047565  
+RSSI                     0.211215     -0.047565  1.000000  
+
+Split 90 rows into train with 67 and test with 23
+输入数据完毕！
+.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_.-_
+clf.fit(os_features, os_labels) is  BernoulliNB(alpha=1.0, binarize=0.0, class_prior=None, fit_prior=True) 
+
+原来的训练数据量：  67
+过采样后的训练数据量：  74
+clf.class_count_ is 
+array([ 37.,  37.])
+
+The Accuracy of BernoulliNB is 0.695652173913
+............................................................
+             precision    recall  f1-score   support
+
+    cause=0       0.79      0.73      0.76        15
+    cause=1       0.56      0.62      0.59         8
+
+avg / total       0.71      0.70      0.70        23
+
+._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._
+
+clf.fit(os_features, os_labels) is  MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True) 
+
+原来的训练数据量：  67
+过采样后的训练数据量：  74
+clf.class_count_ is 
+array([ 37.,  37.])
+
+The Accuracy of MultinomialNB is 0.521739130435
+............................................................
+             precision    recall  f1-score   support
+
+    cause=0       0.64      0.60      0.62        15
+    cause=1       0.33      0.38      0.35         8
+
+avg / total       0.54      0.52      0.53        23
+
+._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._
+
+clf.fit(os_features, os_labels) is  GaussianNB(priors=None) 
+
+原来的训练数据量：  67
+过采样后的训练数据量：  74
+clf.class_count_ is 
+array([ 37.,  37.])
+
+The Accuracy of GaussianNB is 0.652173913043
+............................................................
+             precision    recall  f1-score   support
+
+    cause=0       0.67      0.93      0.78        15
+    cause=1       0.50      0.12      0.20         8
+
+avg / total       0.61      0.65      0.58        23
+
+._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._
+
+Process finished with exit code 0
